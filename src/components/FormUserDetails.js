@@ -8,9 +8,12 @@ export class FormUserDetails extends Component {
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
+    this.props.handleFocus();
   };
   render() {
-    const { values, handleChange } = this.props;
+    const { values, handleChange, handleFocus } = this.props;
+    const {isFocused} = this.props;
+   
     return (
       <MuiThemeProvider>
         <AppBar title="Enter User Details" />
@@ -19,8 +22,9 @@ export class FormUserDetails extends Component {
             id="firstName"
             hintText="Enter First Name"
             floatingLabelText="First Name"
-            onChange={handleChange("firstName")}
-            defaultValue={values.firstName}
+            onBlur = {handleChange("firstName")}
+            onFocus = {handleFocus("firstName")}
+            style={(this.isFocused) ? {fontStyle: 'bold', color: 'yellow'} : {fontStyle: 'italic', color: 'red'}}
           />
           <br />
           <TextField
@@ -54,6 +58,9 @@ export class FormUserDetails extends Component {
 const styles = {
   button: {
     margin: 15
+  },
+  input: {
+    background:'red'
   }
 };
 

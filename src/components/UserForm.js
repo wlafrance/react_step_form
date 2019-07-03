@@ -11,11 +11,13 @@ export class UserForm extends Component {
         email: '',
         occupation: '',
         city: '',
-        bio: ''
+        bio: '',
+        isFocused: false
     }
     
     // Proceed to next step
     nextStep = () => {
+       
         const { step } = this.state;  // Destructing 
         this.setState({
             step: step + 1
@@ -33,6 +35,13 @@ export class UserForm extends Component {
         this.setState({ [input]: e.target.value });
     }
 
+
+    // Handle Focus change
+    handleFocus = input => e => {
+        this.setState({ isFocused: true });
+    }
+    
+
     render() {
         const { step } = this.state;
         const { firstName, lastName, email, occupation, city, bio } = this.state;
@@ -44,6 +53,7 @@ export class UserForm extends Component {
                 return (
                 <FormUserDetails
                     nextStep={this.nextStep}
+                    handleFocus = {this.handleFocus}
                     handleChange={this.handleChange}
                     values={values}
                 />
